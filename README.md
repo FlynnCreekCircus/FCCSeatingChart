@@ -15,4 +15,6 @@ Inside the file itself is a description and instructions for how to update any p
 Go to the code tab in this site, click on seatingChart.html then click the little pen icon in the top right to edit the file, then upload any new pictures to the code folder as needed.
 When you finish changes, you can test using the preview link I included above.
 
+How to create coordinates for a new seat map: https://drive.google.com/file/d/1KSwEAUgu_lgyVmv0UTJ5C9rXU4OjUMcI/view?usp=sharing
+
 Note: Make sure you do all the changes at one time. These changes are live, so any partial changes will show up as broken online wherever this chart is viewed.
