@@ -1,0 +1,18 @@
+Basic description:
+This repository (folder of code and images) holds the program to show a Flynn Creek Seating map. You can hover the mouse (or tap on mobile) over the different types of seats in a seat map
+and it will highlight all seats of that type. It will also show a picture of that seat type to the right as well as a description and price. It also has a "How to Enjoy the Circus"
+paragraph to help users understand the ticketing and check-in process to the circus.
+
+You can preview and test out the current seating chart experience with this link:
+https://htmlpreview.github.io/?https://github.com/FlynnCreekCircus/FCCSeatingChart/blob/main/seatingChart.html
+
+You can also download and see a super quick demo video. In the files it is: SeatingChartDemo.mov
+
+How to update:
+seatingChart.html is the main file that holds the code and that can be updated if the seating chart or info changes.
+Inside the file itself is a description and instructions for how to update any parts of the seating chart and how it looks online.
+
+Go to the code tab in this site, click on seatingChart.html then click the little pen icon in the top right to edit the file, then upload any new pictures to the code folder as needed.
+When you finish changes, you can test using the preview link I included above.
+
+Note: Make sure you do all the changes at one time. These changes are live, so any partial changes will show up as broken online wherever this chart is viewed.
