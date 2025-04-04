@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!--------------------------------------------------------------------
+
+File use and update instructions
+
+
+Description: This file is an interactive seating chart for the Flynn Creek Circus tent.
+It uses a given image and a set of coordinates that were mapped out on that image to 
+display a seating chart, highlight specific seats when they are hovered over with the mouse
+or when they are tapped by your finger on mobile. Also, when a type of seat is hovered over or
+tapped, it brings up an image of that seat to the right of the map as well as a description
+and price to reserve that type of seat. In addition, it has a quick "how to enjoy the circus"
+blurb to help customers understand the process of buying seats and attending a show.
+
+--------------------------------------------------------------------
+
+Parts of the visual experience, and how to update them:
+
+I will include an overview below, as well as comments where you would need to make
+different updates in the file.
+
+
+Parts you might need to update: (you can do a cmd-f / ctrl-f to search for these titles below to
+get a description of what they are and how to update them.)
+
+-Seating Chart Title
+-Seating Map Image
+-Default Seating type image
+-Default seating type text
+-How to Enjoy the Circus
+-Seating Map Hover Coordinates
+-Seating Type Details
+
+--------------------------------------------------------------------
+
+How to update the seating map.
+Steps:
+-Upload the new "Seating Map Image" you want to use to github.
+-Go to https://www.image-map.net/ and use the website to draw your new map hover coordinates
+-Copy these coordinates into the "Seating Map Hover Coordinates" section in the code below.
+-If you have new types of seats (ie: high top table for 5), make sure to add this to the "Seating Type Details" section below
+-Test out your new map to ensure it works!
+
+---------------------------------------------------------------------->
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--------------------------------------------------------------------
+    This title is just for the file, it does not change what is shown on screen.
+  ---------------------------------------------------------------------->
+  <title>Interactive Seating Map</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #264d53;
+      color: #fff;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    /* Main content container with two columns: left for map, right for seat info and instructions */
+    .content-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .map-container {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background: #fff;
+      flex: 1 1 auto;
+    }
+    #seating-map {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    #highlight-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    /* Right column: contains seat info and instructions */
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 450px;
+    }
+    #seat-info {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+      min-height: 300px;
+      max-width: 400px;
+      text-align: center;
+      color: #333;
+      align-self: center;
+    }
+    #seat-info img {
+      max-width: 100%;
+      display: block;
+      margin: 0 auto 10px;
+    }
+    #seat-info .subtext {
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 5px;
+    }
+    .info-paragraph {
+      background: transparent;
+      padding: 10px;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      align-self: center;
+    }
+    .info-paragraph h2 {
+      margin-top: 0;
+      font-size: 1.8em;
+      text-align: center;
+    }
+    .info-paragraph ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .info-paragraph li {
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+    .info-paragraph li strong {
+      font-weight: bold;
+    }
+    .info-paragraph li .important {
+      font-weight: bold;
+      color: #ffcc00;
+    }
+    /* Responsive: On smaller screens, stack columns */
+    @media screen and (max-width: 800px) {
+      .content-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .right-column {
+        width: 100%;
+        max-width: 600px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-----------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+  Seating Chart Title
+  Title shown on screen. Update the text below as needed.
+-------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------>
+  <h1>Interactive Seating Map</h1>
+  
+  <div class="content-container" id="content-container">
+    <div class="map-container" id="map-container">
+
+
+
+<!-----------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+  Seating Map Image
+  This is the image of the seating map shown on screen, just update the "src=..." on the next line
+  with the seat map image you want. (Make sure the file type is correct, for instance .png vs .jpg vs .jpeg, etc)
+-------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------>
+      <img src="2025FCCSeatingMap.jpg" usemap="#image-map" id="seating-map" alt="Seating Map">
+      <div id="highlight-container"></div>
+    </div>
+    <div class="right-column">
+      <div id="seat-info">
+
+
+
+<!-----------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+  Default Seating type image
+  This is the image of seats shown to the right of the seat map. If the mouse is not currently hovering
+  over any specific seat types, it uses the default image below specified by "src=..." Update as needed.
+-------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------>
+        <img src="AerialTent.jpg" alt="Default Seating">
+
+
+
+<!-----------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+  Default seating type text
+  This is the text for the seats shown to the right of the seat map. If the mouse is not currently hovering
+  over any specific seat types, it uses the default text below. Update as needed.
+-------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------>
+        <strong>Seating Overview</strong>
+        <div class="subtext">(Hover Over Map for Details)</div>
+      </div>
+
+
+<!-----------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+  How to Enjoy the Circus
+  This is the text paragraph to the right of the seating map image and below the seat types image. This
+  is just a brief explanation of the process of buying tickets and checking in for a show.
+-------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------>
+      <div class="info-paragraph">
+        <h2>How to Enjoy the Circus</h2>
+        <ul>
+          <li><strong>Choose Date &amp; Time:</strong> Select the date and time that works best for you.</li>
+          <li><strong>Select Seating:</strong> <span class="important">Important:</span> Some options reserve an entire table rather than an individual seat. Read the seating details carefully to ensure you reserve the correct option.</li>
+          <li><strong>Preorder Snacks:</strong> Order concessions in advance if desired.</li>
+          <li><strong>Easy Check-In:</strong> When you arrive, simply tell us the name on your reservation—no physical ticket or QR code is required.</li>
+          <li><strong>Enjoy the Show:</strong> Sit back and have fun!</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+
+
+<!-----------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+  Seating Map Hover Coordinates
+  These are all the coordinates of the different types of seats shown in a seating map. We get these coordinates
+  through https://www.image-map.net/. (you upload an image there and then for each seating type you specify the
+  type and then click to create coordinates around that area of the map. I will include a demo video in the same
+  folder online in github to show how to do it.)
+
+  Make sure you use the same exact names for each seating type here, as you do below in the Seating Type Details section.
+  For instance, use "High Top For 2" for both so that the program knows to relate the map coordinates to seating images.
+
+  If you change the seating map, you will need to make new coordinates on that website and then paste them below
+  to replace the old coordinates.
+-------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------>
+  <map name="image-map">
+    <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="296,65,523,66,524,99,297,98" shape="poly">
+    <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="255,731,239,757,274,780,289,751" shape="poly">
+    <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="294,755,280,782,317,801,329,771" shape="poly">
+    <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="338,771,326,802,370,813,377,782" shape="poly">
+    <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="573,724,542,748,559,778,596,752" shape="poly">
+    <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="538,749,503,763,512,796,554,780" shape="poly">
+    <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="493,763,456,773,458,811,506,799" shape="poly">
+    <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="670,626,651,657,679,680,703,640" shape="poly">
+    <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="160,630,131,647,156,683,180,662" shape="poly">
+    <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="533,12,534,47,836,49,836,12" shape="poly">
+    <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="672,342,692,385,721,371,704,325" shape="poly">
+    <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="696,386,705,431,737,425,727,374" shape="poly">
+    <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="708,437,709,481,740,484,740,431" shape="poly">
+    <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="710,486,704,531,733,539,743,488" shape="poly">
+    <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="706,537,694,585,726,592,736,545" shape="poly">
+    <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="697,586,675,621,705,637,725,594" shape="poly">
+    <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="129,329,158,345,142,390,112,376" shape="poly">
+    <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="108,379,137,393,126,434,97,428" shape="poly">
+    <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="94,435,94,487,123,487,123,440" shape="poly">
+    <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="122,490,92,491,99,543,126,536" shape="poly">
+    <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="96,549,109,597,139,582,127,541" shape="poly">
+    <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="109,600,130,644,159,628,137,586" shape="poly">
+    <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="166,353,265,352,269,394,166,394" shape="poly">
+    <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="178,389,288,398,286,443,178,429" shape="poly">
+    <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="565,345,664,344,664,386,564,389" shape="poly">
+    <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="542,396,546,440,657,424,653,386" shape="poly">
+    <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="555,558,553,657,658,630,650,542" shape="poly">
+    <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="275,561,182,547,176,634,281,659" shape="poly">
+    <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="208,653,217,702,261,693,253,649" shape="poly">
+    <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="297,665,309,709,269,718,256,678" shape="poly">
+    <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="533,663,525,705,570,711,573,670" shape="poly">
+    <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="623,653,612,698,570,686,580,645" shape="poly">
+    <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="247,7,525,6,525,58,247,58" shape="poly">
+    <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="15,8,244,8,244,58,15,56" shape="poly">
+    <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="296,409,299,500,345,500,344,408" shape="poly">
+    <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="487,404,487,497,536,498,537,404" shape="poly">
+    <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="318,727,358,709,339,672,310,689" shape="poly">
+    <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="342,626,345,668,303,671,298,636" shape="poly">
+    <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="492,623,535,630,530,665,489,667" shape="poly">
+    <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="491,667,478,702,518,723,528,677" shape="poly">
+    <area target="" alt="VIP High Top For 2" title="VIP High Top For 2" href="" coords="278,318,276,387,316,388,318,319" shape="poly">
+    <area target="" alt="VIP High Top For 2" title="VIP High Top For 2" href="" coords="515,318,518,386,555,385,551,317" shape="poly">
+    <area target="" alt="VIP High Top For 2" title="VIP High Top For 2" href="" coords="15,63,266,64,265,95,14,93" shape="poly">
+    <area target="" alt="VIP Bench For 2" title="VIP Bench For 2" href="" coords="26,98,256,100,255,133,27,131" shape="poly">
+    <area target="" alt="VIP Bench For 2" title="VIP Bench For 2" href="" coords="289,512,298,633,336,625,329,513" shape="poly">
+    <area target="" alt="VIP Bench For 2" title="VIP Bench For 2" href="" coords="510,508,500,622,535,627,540,508" shape="poly">
+    <area target="" alt="Garden Bench For 2" title="Garden Bench For 2" href="" coords="268,102,543,103,543,130,269,129" shape="poly">
+    <area target="" alt="Garden Bench For 2" title="Garden Bench For 2" href="" coords="546,447,549,556,650,539,646,454" shape="poly">
+    <area target="" alt="Garden Bench For 2" title="Garden Bench For 2" href="" coords="287,447,187,458,187,545,286,558" shape="poly">
+    <area target="" alt="Single Stool" title="Single Stool" href="" coords="620,94,824,95,823,128,620,127" shape="poly">
+    <area target="" alt="Single Stool" title="Single Stool" href="" coords="644,298,674,279,700,320,669,339" shape="poly">
+    <area target="" alt="Single Stool" title="Single Stool" href="" coords="596,301,623,284,646,329,618,343" shape="poly">
+    <area target="" alt="Single Stool" title="Single Stool" href="" coords="213,349,236,303,206,288,185,336" shape="poly">
+    <area target="" alt="Single Stool" title="Single Stool" href="" coords="160,343,188,304,165,281,137,326" shape="poly">
+    <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="248,299,228,345,255,349,276,312" shape="poly">
+    <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="581,293,598,336,568,343,552,306" shape="poly">
+    <area target="" alt="VIP Bench For 2" title="VIP Bench For 2" href="" coords="443,710,451,734,482,722,472,698" shape="poly">
+    <area target="" alt="VIP Bench For 2" title="VIP Bench For 2" href="" coords="366,696,397,705,389,732,357,721" shape="poly">
+    <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="542,55,812,57,812,84,543,83" shape="poly">
+    <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="208,435,192,432,190,455,210,452" shape="poly">
+    <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="180,430,181,482,163,482,162,429" shape="poly">
+    <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="138,501,155,500,155,555,138,555" shape="poly">
+    <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="177,505,174,607,160,605,158,505" shape="poly">
+    <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="243,739,232,752,182,707,196,695" shape="poly">
+    <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="401,709,400,751,442,750,438,709" shape="poly">
+    <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="625,431,642,427,643,452,626,450" shape="poly">
+    <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="653,428,669,427,669,474,653,474" shape="poly">
+    <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="656,502,658,602,671,601,673,501" shape="poly">
+    <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="678,498,692,498,691,551,677,551" shape="poly">
+    <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="638,690,591,733,603,747,652,705" shape="poly">
+  </map>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const seatingMap = document.getElementById("seating-map");
+      const highlightContainer = document.getElementById("highlight-container");
+      const areas = document.getElementsByTagName("area");
+      const seatInfo = document.getElementById("seat-info");
+      const svgNS = "http://www.w3.org/2000/svg";
+      
+
+//-------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------
+//    Seating Type Details
+//    Here we have the specific details about each type of seat we have on the seating map.
+//    These names need to correspond with the seating type names used in the map above.
+//
+//    For instance above you might define a seating type coordinate as:
+//
+//    <area target="" alt="VIP Bench For 2" title="VIP Bench For 2" href="" coords="366,696,397,705,389,732,357,721" shape="poly">
+//
+//    Then you would need the below value to have the same title/name like:
+//
+//    "VIP Bench For 2": {
+//      image: "WhateverPictureYouWantToUse.jpg",
+//      cost: "$20"
+//     },
+//
+//    You can update all these as needed. For each seating type in the map above, you should have a type here including
+//    an image and a cost.
+//
+//-------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------
+
+      const seatTypeDetails = {
+        "High Top For 2": {
+          image: "SeatingDefault.jpg",
+          cost: "$20"
+        },
+        "High Top Table For 4": {
+          image: "SeatingDefault.jpg",
+          cost: "$50"
+        },
+        "Canopy Table For 4": {
+          image: "SeatingDefault.jpg",
+          cost: "$55"
+        },
+        "VIP Table For 4": {
+          image: "SeatingDefault.jpg",
+          cost: "$75"
+        },
+        "VIP High Top For 2": {
+          image: "SeatingDefault.jpg",
+          cost: "$30"
+        },
+        "VIP Bench For 2": {
+          image: "SeatingDefault.jpg",
+          cost: "$25"
+        },
+        "Garden Bench For 2": {
+          image: "SeatingDefault.jpg",
+          cost: "$20"
+        },
+        "Single Stool": {
+          image: "SeatingDefault.jpg",
+          cost: "$15"
+        },
+        "Single Folding Chair": {
+          image: "SeatingDefault.jpg",
+          cost: "$10"
+        }
+      };
+      
+      // Default seat info details when no seat is hovered.
+      const defaultDetails = {
+        image: "AerialTent.jpg",
+        text: "Seating Overview",
+        subtext: "(Hover Over Map for Details)"
+      };
+      
+      // Function to update the seat info panel with given details.
+      function updateSeatInfo(details) {
+        seatInfo.innerHTML = '<img src="' + details.image + '" alt="Seat Image">' +
+                             '<strong>' + (details.text || '') + '</strong>' +
+                             (details.cost ? ' - ' + details.cost : '') +
+                             (details.subtext ? '<div class="subtext">' + details.subtext + '</div>' : '');
+      }
+      
+      // Set default info initially.
+      updateSeatInfo(defaultDetails);
+      
+      // Recalculate image map coordinates for responsiveness.
+      function recalcImageMap() {
+        const scale = seatingMap.clientWidth / seatingMap.naturalWidth;
+        Array.from(areas).forEach(area => {
+          if (!area.dataset.originalCoords) {
+            area.dataset.originalCoords = area.getAttribute("coords");
+          }
+          const originalCoords = area.dataset.originalCoords.split(",").map(Number);
+          const newCoords = originalCoords.map(coord => Math.round(coord * scale));
+          area.setAttribute("coords", newCoords.join(","));
+        });
+        console.log("Recalculated image map coordinates");
+      }
+      
+      seatingMap.addEventListener("load", recalcImageMap);
+      if (seatingMap.complete) {
+        recalcImageMap();
+      }
+      
+      // Prevent click events on areas from reloading the page.
+      Array.from(areas).forEach(area => {
+        if (!area.getAttribute("href") || area.getAttribute("href").trim() === "") {
+          area.setAttribute("href", "javascript:void(0);");
+        }
+        area.addEventListener("click", function(e) {
+          e.preventDefault();
+        });
+      });
+      
+      // Clear any SVG highlights and reset seat info to default.
+      function clearHighlights() {
+        highlightContainer.innerHTML = "";
+        updateSeatInfo(defaultDetails);
+        console.log("Cleared highlights and reset seat info");
+      }
+      
+      // Highlight all areas matching the seat type and update seat info.
+      function highlightAreas(seatType) {
+        clearHighlights();
+        console.log("Highlighting seat type: " + seatType);
+        const svg = document.createElementNS(svgNS, "svg");
+        svg.setAttribute("width", seatingMap.clientWidth);
+        svg.setAttribute("height", seatingMap.clientHeight);
+        svg.style.position = "absolute";
+        svg.style.top = 0;
+        svg.style.left = 0;
+        svg.style.pointerEvents = "none";
+        
+        Array.from(areas).forEach(area => {
+          if (area.getAttribute("title") === seatType) {
+            const coords = area.getAttribute("coords").split(",").map(Number);
+            let points = [];
+            for (let i = 0; i < coords.length; i += 2) {
+              points.push(coords[i] + "," + coords[i+1]);
+            }
+            const polygon = document.createElementNS(svgNS, "polygon");
+            polygon.setAttribute("points", points.join(" "));
+            polygon.setAttribute("fill", "rgba(255, 255, 0, 0.5)");
+            svg.appendChild(polygon);
+          }
+        });
+        highlightContainer.appendChild(svg);
+        
+        if (seatTypeDetails[seatType]) {
+          const details = seatTypeDetails[seatType];
+          updateSeatInfo({
+            image: details.image,
+            text: seatType,
+            cost: details.cost
+          });
+        } else {
+          updateSeatInfo({ text: seatType });
+        }
+      }
+      
+      // Attach mouse and touch events to each area.
+      Array.from(areas).forEach(area => {
+        // Desktop events.
+        area.addEventListener("mouseover", function() {
+          const seatType = this.getAttribute("title");
+          highlightAreas(seatType);
+          console.log("Mouseover event on area: " + seatType);
+        });
+        area.addEventListener("mouseout", function() {
+          clearHighlights();
+          console.log("Mouseout event on area: " + this.getAttribute("title"));
+        });
+        // Mobile touch events.
+        area.addEventListener("touchstart", function(e) {
+          e.preventDefault();
+          const seatType = this.getAttribute("title");
+          highlightAreas(seatType);
+          console.log("Touchstart event on area: " + seatType);
+        });
+        area.addEventListener("touchend", function(e) {
+          clearHighlights();
+          console.log("Touchend event on area: " + this.getAttribute("title"));
+        });
+      });
+      
+      window.addEventListener("resize", function() {
+        recalcImageMap();
+        clearHighlights();
+      });
+    });
+
+    function sendHeight() {
+      // Get the total height of the document
+      var height = document.documentElement.scrollHeight;
+      // Send the height to the parent
+      window.parent.postMessage({ type: 'setHeight', height: height }, '*');
+    }
+    // Send the height when the page loads and when resized
+    window.addEventListener('load', sendHeight);
+    window.addEventListener('resize', sendHeight);
+  </script>
+</body>
+</html>
