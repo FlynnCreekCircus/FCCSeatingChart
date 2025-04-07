@@ -6,14 +6,14 @@ paragraph to help users understand the ticketing and check-in process to the cir
 You can preview and test out the current seating chart experience with this link:
 https://htmlpreview.github.io/?https://github.com/FlynnCreekCircus/FCCSeatingChart/blob/main/seatingChart.html
 
-You can also download and see a super quick demo video. In the files it is: SeatingChartDemo.mov
-
 How to update:
 seatingChart.html is the main file that holds the code and that can be updated if the seating chart or info changes.
 Inside the file itself is a description and instructions for how to update any parts of the seating chart and how it looks online.
 
 Go to the code tab in this site, click on seatingChart.html then click the little pen icon in the top right to edit the file, then upload any new pictures to the code folder as needed.
 When you finish changes, you can test using the preview link I included above.
+
+The "How to Enjoy the Circus" paragraph is in the HowToEnjoyTheCircus.html file, you can update the text there.
 
 How to create coordinates for a new seat map: https://drive.google.com/file/d/1KSwEAUgu_lgyVmv0UTJ5C9rXU4OjUMcI/view?usp=sharing
 
