@@ -30,7 +30,7 @@ get a description of what they are and how to update them.)
 -Seating Map Image
 -Default Seating type image
 -Default seating type text
--How to Enjoy the Circus
+-How to Enjoy the Circus (edit the HowToEnjoyTheCircus.html file in the same folder to change the text)
 -Seating Map Hover Coordinates
 -Seating Type Details
 
@@ -124,33 +124,6 @@ Steps:
       color: #666;
       margin-top: 5px;
     }
-    .info-paragraph {
-      background: transparent;
-      padding: 10px;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      align-self: center;
-    }
-    .info-paragraph h2 {
-      margin-top: 0;
-      font-size: 1.8em;
-      text-align: center;
-    }
-    .info-paragraph ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    .info-paragraph li {
-      margin: 10px 0;
-      line-height: 1.5;
-    }
-    .info-paragraph li strong {
-      font-weight: bold;
-    }
-    .info-paragraph li .important {
-      font-weight: bold;
-      color: #ffcc00;
-    }
     /* Responsive: On smaller screens, stack columns */
     @media screen and (max-width: 800px) {
       .content-container {
@@ -222,23 +195,12 @@ Steps:
   How to Enjoy the Circus
   This is the text paragraph to the right of the seating map image and below the seat types image. This
   is just a brief explanation of the process of buying tickets and checking in for a show.
+
+  We moved this to a separate file to manage easier, edit the text in HowToEnjoyTheCircus.html file.
 -------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------>
-      <div class="info-paragraph">
-        <h2>How to Enjoy the Circus</h2>
-        <ul>
-          <li><strong>Choose Date &amp; Time:</strong> Select the date and time that works best for you.</li>
-          <li><strong>Select Seating:</strong> <span class="important">Important:</span> Some options reserve an <span class="important">entire table</span> rather than an individual seat. Read the seating details carefully to ensure you reserve the correct option.</li>
-          <li><strong>Preorder Snacks:</strong> Order concessions in advance if desired.</li>
-          <li><strong>Easy Check-In:</strong> When you arrive, simply tell us the name on your reservation—your purchase will automatically put you on our registered guest list.</li>
-          <li><strong>Enjoy the Show:</strong> Sit back and have fun!</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<div id="HowToEnjoyTheCircusContainer" style="width: 100%;"></div>
   
-
-
 <!-----------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
   Seating Map Hover Coordinates
@@ -427,7 +389,6 @@ Steps:
           const newCoords = originalCoords.map(coord => Math.round(coord * scale));
           area.setAttribute("coords", newCoords.join(","));
         });
-        console.log("Recalculated image map coordinates");
       }
       
       seatingMap.addEventListener("load", recalcImageMap);
@@ -449,13 +410,11 @@ Steps:
       function clearHighlights() {
         highlightContainer.innerHTML = "";
         updateSeatInfo(defaultDetails);
-        console.log("Cleared highlights and reset seat info");
       }
       
       // Highlight all areas matching the seat type and update seat info.
       function highlightAreas(seatType) {
         clearHighlights();
-        console.log("Highlighting seat type: " + seatType);
         const svg = document.createElementNS(svgNS, "svg");
         svg.setAttribute("width", seatingMap.clientWidth);
         svg.setAttribute("height", seatingMap.clientHeight);
@@ -497,22 +456,18 @@ Steps:
         area.addEventListener("mouseover", function() {
           const seatType = this.getAttribute("title");
           highlightAreas(seatType);
-          console.log("Mouseover event on area: " + seatType);
         });
         area.addEventListener("mouseout", function() {
           clearHighlights();
-          console.log("Mouseout event on area: " + this.getAttribute("title"));
         });
         // Mobile touch events.
         area.addEventListener("touchstart", function(e) {
           e.preventDefault();
           const seatType = this.getAttribute("title");
           highlightAreas(seatType);
-          console.log("Touchstart event on area: " + seatType);
         });
         area.addEventListener("touchend", function(e) {
           clearHighlights();
-          console.log("Touchend event on area: " + this.getAttribute("title"));
         });
       });
       
@@ -531,6 +486,14 @@ Steps:
     // Send the height when the page loads and when resized
     window.addEventListener('load', sendHeight);
     window.addEventListener('resize', sendHeight);
+  </script>
+  <script>
+    fetch('HowToEnjoyTheCircus.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('HowToEnjoyTheCircusContainer').innerHTML = html;
+      })
+      .catch(err => console.error('Error loading instructions:', err));
   </script>
 </body>
 </html>
