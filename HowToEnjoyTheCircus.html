@@ -20,6 +20,8 @@
   -Surrounding any text with "<span class="important">Example Text</span>" will make the text bolded and yellow
   -The surrounding <ul></ul> tags just mean this is a list of items
   -The surrounding <li></li> tags just mean it is an item in the list, and it adds a new line of text in the paragraph.
+
+  See section below this if you want to use a visual editor to see what you are changing in real time.
 -------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------>
   <div class="info-paragraph">
@@ -34,10 +36,47 @@
   </div>
 
 
+<!-------------------------------------------------------------------------------------------------------
+How to edit and test your changes in a visual interface in real time:
+
+If you want to edit the text and look of the text, you can copy the section above as well as this testing style below between the style tags, 
+and paste it into this site "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_editor" to see what changing the code above does.
+Then when you are happy, you can replace the section above with your new changes and it will show up as desired on the website.
+
+------ Copy below here -------
+<style>
+    .info-paragraph {
+      background: #2E4A50;
+      padding: 10px;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      align-self: center;
+    }
+    .info-paragraph h2 {
+      margin-top: 0;
+      font-size: 1.8em;
+      text-align: center;
+    }
+    .info-paragraph ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .info-paragraph li {
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+    .info-paragraph li strong {
+      font-weight: bold;
+    }
+    .info-paragraph li .important {
+      font-weight: bold;
+      color: #ffcc00;
+    }
+  </style>
+  ------ Copy above here -------
 
 
-
-
+  ------------------------------------------------------------------------------------------------------>
 
 <!-------------------------------------------------------------------------------------------------------
 You probably don't need to edit anything below, this defines the styling / look and layout of the paragraph.
